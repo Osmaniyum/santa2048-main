@@ -56,8 +56,8 @@ public class Santa2048Logic {
             for (int j = 0; j < SIZE; j++) {
                 if (board[i][j] == 0) {
                     emptyTiles++;
-                    if (board[i][j] == board[) {
-                        board[i]
+                   if (board[i][j] != newBoard[i][j]) {
+                    System.out.println("Invalid move");
                     }
                     if (emptyTiles == position) {
                         board[i][j] = (random.nextInt(2) + 1) * 2; // 2 or 4
@@ -110,7 +110,7 @@ public class Santa2048Logic {
         slideUp();
         combineUp();
         slideUp();
-        if (int
+        //if (int
         repaint();
     }
 
