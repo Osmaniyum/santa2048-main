@@ -45,7 +45,7 @@ public class Santa2048Logic {
 
         if (emptyTiles == 0) {
             // Game over logic
-            //System.out.println("Game Over");
+            // System.out.println("Game Over");
             return;
         }
 
@@ -56,8 +56,8 @@ public class Santa2048Logic {
             for (int j = 0; j < SIZE; j++) {
                 if (board[i][j] == 0) {
                     emptyTiles++;
-                   if (board[i][j] != newBoard[i][j]) {
-                    System.out.println("Invalid move");
+                    if (board[i][j] != newBoard[i][j]) {
+                        System.out.println("Invalid move");
                     }
                     if (emptyTiles == position) {
                         board[i][j] = (random.nextInt(2) + 1) * 2; // 2 or 4
@@ -76,12 +76,12 @@ public class Santa2048Logic {
             for (int row = 0; row < SIZE; row++) {
                 // if value is 0...
                 if (board[row][col] == 0) {
-                    //...perform this for
+                    // ...perform this for
                     //
                     for (int i = row; i < SIZE; i++) {
-                        // if the value of 
+                        // if the value of
                         if (board[i][col] != 0) {
-                            
+
                             board[row][col] = board[i][col];
                             board[i][col] = 0;
                             break;
@@ -110,7 +110,7 @@ public class Santa2048Logic {
         slideUp();
         combineUp();
         slideUp();
-        //if (int
+        // if (int
         repaint();
     }
 
@@ -277,9 +277,5 @@ public class Santa2048Logic {
     }
 
     private void repaint() {
-        // You might want to replace this with a call to the actual repaint
-        // method of your GUI component. Assuming your GUI class is named Game2048GUI.
-        // santa2048GUI.repaint();
-        // For simplicity, let's print a message for now.
     }
 }
