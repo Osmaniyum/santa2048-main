@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Santa2048 {
+    public int size = 3;
     public static void main(String[] args) {
         JFrame frame = new JFrame("Santa 2048 Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -17,14 +17,37 @@ public class Santa2048GUI extends JPanel implements KeyListener {
     public static JLabel gameOverLabel;
     static BufferedImage santa;
     boolean hasGameEnded = false;
+    public JPanel titleScreen;
+
 
     private JPanel endScreen;
     private JPanel winScreen;
 
     public Santa2048GUI() {
-        // Creating game end screen
+        // Creating game title screen
+        titleScreen = new JPanel();
+        titleScreen.setPreferredSize(new Dimension(800, 650));
+        titleScreen.setBackground(new Color(71, 135, 30));
+        titleScreen.setLayout(new BorderLayout());
+        JLabel titleLabel = new JLabel("      2048");
+        titleLabel.setFont(new Font("Aharoni", Font.BOLD, 100));
+        titleLabel.setForeground(Color.RED);
+        titleScreen.add(titleLabel, BorderLayout.NORTH);
+
+        JLabel instructionsLabel = new JLabel("How to play:\n Combine like tiles using arrow keys to form the 2048 tile!                                                                 ");
+        instructionsLabel.setFont(new Font ("Aharoni", Font.PLAIN, 15));
+        instructionsLabel.setForeground(Color.WHITE);
+       // instructionsLabel.setAlignmentX(200);
+        //instructionsLabel.setAlignmentY(300);
+        titleScreen.add(instructionsLabel, BorderLayout.AFTER_LINE_ENDS);
+
+        // Set title screen initially visible
+        titleScreen.setVisible(true);
+        add(titleScreen);
+
+        // Creating game end scree
         endScreen = new JPanel();
-        endScreen.setPreferredSize(new Dimension(800, 800));
+        endScreen.setPreferredSize(new Dimension(SIZE*TILE_SIZE, SIZE*TILE_SIZE));
         endScreen.setBackground(new Color(187, 73, 60));
         // endScreen.setLayout(new BorderLayout());
 
@@ -46,6 +69,32 @@ public class Santa2048GUI extends JPanel implements KeyListener {
 
         setFocusable(true);
         addKeyListener(this);
+
+        showTitleScreen();
+    }
+
+    private class StartButtonListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            titleScreen.setVisible(false);
+
+           // int value = 3;
+            
+        }
+    }
+
+    private class titleButtonListener implements ActionListener {
+
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            hasGameEnded = false;
+            titleScreen.setVisible(true);
+            endScreen.setVisible(false);
+            gameLogic.resetGame();
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        }
     }
 
     private class RestartButtonListener implements ActionListener {
@@ -55,6 +104,8 @@ public class Santa2048GUI extends JPanel implements KeyListener {
             System.out.println("Game Over");
             endScreen.setVisible(false);
             gameLogic.resetGame();
+
+           // Santa2048GUI.setVisible(true);
 
             // Request focus for the game panel
             Santa2048GUI.this.requestFocus();
@@ -70,6 +121,7 @@ public class Santa2048GUI extends JPanel implements KeyListener {
             drawTiles(g);
             drawScore(g);
             drawTitle(g);
+            //showWinScreen();
         }
     }
 
@@ -87,6 +139,19 @@ public class Santa2048GUI extends JPanel implements KeyListener {
         g.drawString("8", 515, 150);
     }
 
+    private void showTitleScreen() {
+        titleScreen.setVisible(true);
+        // titleScreen.removeAll();
+        JButton startButton = new JButton("Start Game");
+        startButton.setSize(120, 30);
+        titleScreen.add(startButton, BorderLayout.SOUTH);
+        startButton.addActionListener(new StartButtonListener());
+        //JLabel instructionsLabel = new JLabel("How to play:");
+
+
+    }
+
+
     // Methods for game end, win, and restart
     private void showEndScreen() {
         System.out.println("Displaying end screen");
@@ -96,20 +161,23 @@ public class Santa2048GUI extends JPanel implements KeyListener {
         endScreen.removeAll(); // Clear any previous components
         Font font = new Font("Aharoni", Font.BOLD, 20);
         JLabel endMessageLabelLoss = new JLabel(
-                "<html>Oh no! You lost.<br/>" + "Restart the game to feed Santa and save Christmas.<html>",
+                "<html>Oh no! You lost.<br/>" + "Restart the game to reach 2048 and save Christmas!<html>",
                 SwingConstants.CENTER);
-        JLabel endMessageLabelWin = new JLabel(
-                "You fed Santa, and now he has enough energy to get through Christmas. Yay!");
         // Customize endMessageLabel as needed
 
         // Add end message label to the center of the end screen
         endScreen.add(endMessageLabelLoss);
 
-        JButton restartButton = new JButton("Restart Game");
+        JButton restartButton = new JButton("Restart game");
         // restartButton.setLocation(350, 100);
         restartButton.setSize(120, 50);
         endScreen.add(restartButton);
         restartButton.addActionListener(new RestartButtonListener());
+
+        JButton titleButton = new JButton("Back to title screen");
+        titleButton.setSize(120, 50);
+        endScreen.add(titleButton);
+        titleButton.addActionListener(new titleButtonListener());
 
         // winScreen.add(endMessageLabelWin, BorderLayout.CENTER);
         // winScreen.add(restartButton, BorderLayout.SOUTH);
@@ -118,6 +186,18 @@ public class Santa2048GUI extends JPanel implements KeyListener {
         // add(endScreen);
 
         repaint();
+    }
+
+    private void showWinScreen(){
+        winScreen.setVisible(true);
+         JLabel endMessageLabelWin = new JLabel(
+            "You did it! You reached the 2048 tile and you win!", SwingConstants.CENTER);
+            //winScreen(add(endMessageLabelWin);
+        JButton titleButton = new JButton("Back to title screen");
+        titleButton.setSize(120, 50);
+        endScreen.add(titleButton);
+       titleButton.addActionListener(new titleButtonListener());
+
     }
 
     private void drawScore(Graphics g) {
@@ -215,25 +295,25 @@ public class Santa2048GUI extends JPanel implements KeyListener {
             case 2:
                 return new Color(0, 255, 0);
             case 4:
-                return new Color(255, 0, 0);
+                return new Color(40, 180, 0);
             case 8:
-                return new Color(0, 255, 0);
+                return new Color(80, 150, 0);
             case 16:
-                return new Color(255, 0, 0);
+                return new Color(100, 100, 0);
             case 32:
-                return new Color(0, 255, 0);
+                return new Color(140, 80, 0);
             case 64:
-                return new Color(255, 0, 0);
+                return new Color(180, 40, 0);
             case 128:
-                return new Color(0, 255, 0);
+                return new Color(200, 30, 0);
             case 256:
                 return new Color(255, 0, 0);
             case 512:
-                return new Color(0, 255, 0);
+                return new Color(255, 0, 50);
             case 1024:
-                return new Color(255, 0, 0);
+                return new Color(255, 0, 100);
             case 2048:
-                return new Color(0, 255, 0);
+                return new Color(255, 0, 190);
             default:
                 return Color.BLACK;
         }
